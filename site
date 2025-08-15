@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Surprise Betty</title>
+<style>
+body {font-family: Arial; margin:0; padding:0; text-align:center; background:#ffe6f0;}
+.page {display:none; width:100%; height:100vh; position:relative;}
+h1,h2,p {margin:20px;}
+input {padding:10px; font-size:16px;}
+button {padding:10px 20px; font-size:16px; cursor:pointer; margin-top:10px;}
+.fleur {width:50px; position:absolute; top:-50px; animation:tomber 3s infinite;}
+@keyframes tomber {0% {top:-50px;} 100% {top:400px;}}
+.balloon {position:absolute; width:50px; animation:monter 4s forwards;}
+@keyframes monter {0% {bottom:0;} 100% {bottom:400px;}}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: Nom -->
+<div id="page1" class="page" style="display:block;">
+<h1>Écris ton nom, Betty</h1>
+<input type="text" id="name" placeholder="Ton nom ici">
+<br>
+<button onclick="goPage2()">Valider</button>
+</div>
+
+<!-- PAGE 2: Fleurs et porte -->
+<div id="page2" class="page" style="background:#ccffcc;">
+<h1>Regarde cette porte magique remplie de fleurs !</h1>
+<img class="fleur" src="https://i.imgur.com/1zFZa1M.png" style="left:20%;">
+<img class="fleur" src="https://i.imgur.com/7z5f8Wv.png" style="left:50%;">
+<img class="fleur" src="https://i.imgur.com/1zFZa1M.png" style="left:80%;">
+<br>
+<button onclick="goPage3()">Ouvrir la porte</button>
+</div>
+
+<!-- PAGE 3: Question -->
+<div id="page3" class="page" style="background:#fff0f5;">
+<h1>Tu sais que je t'aime bien Betty ?</h1>
+<button onclick="goPage4()">Oui</button>
+<button onclick="closePage()">Non</button>
+</div>
+
+<!-- PAGE 4: Texte romantique avec ballons -->
+<div id="page4" class="page" style="background:#ffe6e6;">
+<h1>Betty, tu vas tellement me manquer 💖</h1>
+<p>Chaque instant sans toi me fait penser à nos fous rires et nos moments partagés. Je t'aime et je te souhaite un merveilleux voyage !</p>
+<button onclick="goPage5()">Conclusion</button>
+</div>
+
+<!-- PAGE 5: Message final avec ballons et cœurs -->
+<div id="page5" class="page" style="background:#ffe6f0;">
+<h1>💖 Je t'aime Betty 💖</h1>
+<p>Mon gros BB, je t'embrasse 😘😘😘</p>
+<p>Bon voyage et pense à moi 💕💕💕</p>
+<p>Je t'aime Betty, je t'aime Betty, je t'aime Betty ! ❤️❤️❤️</p>
+</div>
+
+<script>
+function goPage2(){
+  let name = document.getElementById("name").value;
+  if(name.trim()!==""){
+    localStorage.setItem("bettyName", name);
+    document.getElementById("page1").style.display="none";
+    document.getElementById("page2").style.display="block";
+  } else {
+    alert("Écris ton nom d'abord !");
+  }
+}
+function goPage3(){
+  document.getElementById("page2").style.display="none";
+  document.getElementById("page3").style.display="block";
+}
+function goPage4(){
+  document.getElementById("page3").style.display="none";
+  document.getElementById("page4").style.display="block";
+  // Ajout de ballons aléatoires
+  for(let i=0;i<10;i++){
+    let balloon=document.createElement("div");
+    balloon.className="balloon";
+    balloon.style.left=(10+Math.random()*80)+"%";
+    balloon.style.background="pink";
+    balloon.style.height="50px";
+    balloon.style.borderRadius="50%";
+    document.getElementById("page4").appendChild(balloon);
+  }
+}
+function goPage5(){
+  document.getElementById("page4").style.display="none";
+  document.getElementById("page5").style.display="block";
+}
+function closePage(){ alert("D'accord 😢, à bientôt !"); window.close();}
+</script>
+
+</body>
+</html>
